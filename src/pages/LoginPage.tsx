@@ -67,7 +67,7 @@ export function LoginPage() {
               </label>
               <a href="#" className="text-sm text-orange-600 hover:underline">Forgot password?</a>
             </div>
-            <button type="submit" className="w-full py-2.5 bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">Login</button>
+            <button type="submit" className="w-full py-2.5 bg-[#171717] text-[#B7D92B] text-sm font-bold hover:bg-[#2a2a2a] transition-colors">Login</button>
           </form>
 
           <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
@@ -128,7 +128,7 @@ export function RegisterPage() {
               <input type="checkbox" className="accent-orange-600 mt-0.5" />
               <span className="text-gray-600">I agree to the <a href="#" className="text-orange-600">Terms & Conditions</a> and <a href="#" className="text-orange-600">Privacy Policy</a></span>
             </label>
-            <button type="submit" className="w-full py-2.5 bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">Create Account</button>
+            <button type="submit" className="w-full py-2.5 bg-[#171717] text-[#B7D92B] text-sm font-bold hover:bg-[#2a2a2a] transition-colors">Create Account</button>
           </form>
           <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
             Already have an account? <Link to="/login" className="text-[var(--color-accent)] font-medium hover:underline">Login</Link>

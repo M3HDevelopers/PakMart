@@ -161,12 +161,12 @@ export function ProductDetail() {
               <span className="px-4 py-2 text-sm font-medium border-x border-[var(--color-border)]">{quantity}</span>
               <button onClick={() => setQuantity(Math.min(product.stock, quantity + 1))} className="px-3 py-2 hover:bg-[var(--color-bg-tertiary)]"><Plus size={14} /></button>
             </div>
-            <button onClick={handleAddToCart} disabled={product.stock === 0} className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-accent)] text-white py-2.5 text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:bg-[var(--color-border)] disabled:text-[var(--color-text-muted)] transition-colors">
+            <button onClick={handleAddToCart} disabled={product.stock === 0} className="flex-1 flex items-center justify-center gap-2 bg-[#B7D92B] text-[#171717] py-2.5 text-sm font-bold hover:bg-[#9FC020] disabled:bg-[var(--color-border)] disabled:text-[var(--color-text-muted)] transition-colors">
               <ShoppingCart size={16} />
               {addedToCart ? 'Added!' : 'Add to Cart'}
             </button>
           </div>
-          <Link to="/checkout" className="block w-full text-center bg-[var(--color-text)] text-white py-2.5 text-sm font-medium hover:bg-[var(--color-text-secondary)] transition-colors">
+          <Link to="/checkout" className="block w-full text-center bg-[#171717] text-[#B7D92B] py-2.5 text-sm font-bold hover:bg-[#2a2a2a] transition-colors">
             Buy Now
           </Link>
 

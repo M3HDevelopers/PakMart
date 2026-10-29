@@ -64,7 +64,7 @@ export function CustomerDashboard() {
             </div>
             <nav className="space-y-1">
               {tabs.map(tab => (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-medium transition-colors ${activeTab === tab.id ? 'bg-[var(--color-text)] text-white' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}>
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-medium transition-colors ${activeTab === tab.id ? 'bg-[#171717] text-[#B7D92B]' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}>
                   <tab.icon size={18} />
                   {tab.label}
                   {tab.id === 'notifications' && notifications.filter(n => !n.read).length > 0 && (

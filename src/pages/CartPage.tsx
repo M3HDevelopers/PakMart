@@ -125,7 +125,7 @@ export function CartPage() {
             </div>
           </div>
 
-          <Link to="/checkout" className="block w-full mt-6 text-center bg-[var(--color-accent)] text-white py-2.5 text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">
+          <Link to="/checkout" className="block w-full mt-6 text-center bg-[#171717] text-[#B7D92B] py-2.5 text-sm font-bold hover:bg-[#2a2a2a] transition-colors">
             Proceed to Checkout
           </Link>
           <Link to="/" className="block w-full mt-3 text-center text-[var(--color-accent)] text-xs font-medium hover:underline">

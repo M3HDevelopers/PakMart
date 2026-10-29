@@ -2,17 +2,18 @@
 
 @layer base {
   :root {
-    --color-bg: #ffffff;
-    --color-bg-secondary: #f8f8f8;
-    --color-bg-tertiary: #f0f0f0;
-    --color-border: #e5e5e5;
-    --color-border-strong: #d4d4d4;
-    --color-text: #1a1a1a;
-    --color-text-secondary: #525252;
+    --color-bg: #FFFFFF;
+    --color-bg-secondary: #EDEFE7;
+    --color-bg-tertiary: #E2E4DC;
+    --color-border: #D4D6CE;
+    --color-border-strong: #B8BAB2;
+    --color-text: #171717;
+    --color-text-secondary: #404040;
     --color-text-muted: #737373;
-    --color-accent: #c2410c;
-    --color-accent-hover: #9a3412;
-    --color-accent-light: #fff7ed;
+    --color-accent: #B7D92B;
+    --color-accent-hover: #9FC020;
+    --color-accent-light: #F4FBE6;
+    --color-accent-dark: #7A9118;
     --color-success: #15803d;
     --color-warning: #a16207;
     --color-danger: #b91c1c;
@@ -24,9 +25,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
@@ -44,27 +43,12 @@
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: #d4d4d4 transparent;
+    scrollbar-color: #B8BAB2 transparent;
   }
 }
 
 @layer utilities {
-  .line-clamp-1 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-  }
-  .line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-  .line-clamp-3 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
+  .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
+  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 }

@@ -35,8 +35,8 @@ export function Layout() {
   return (
     <div className="min-h-screen bg-[var(--color-bg-secondary)] font-[Inter]">
       {/* Announcement Bar */}
-      <div className="bg-[var(--color-text)] text-white text-center py-2 text-xs font-medium tracking-wide">
-        Free shipping on orders over Rs. 3,000 — Same-day dispatch on orders before 2 PM
+      <div className="bg-[#171717] text-[#B7D92B] text-center py-2.5 text-xs font-medium tracking-wide uppercase">
+        Free shipping on orders over Rs. 3,000 — Same-day dispatch before 2 PM
       </div>
 
       {/* Main Header */}
@@ -44,8 +44,8 @@ export function Layout() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-4">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <h1 className="text-xl font-bold tracking-tight text-[var(--color-text)]">
-              Pak<span className="text-[var(--color-accent)]">Mart</span>
+            <h1 className="text-xl font-black tracking-tight text-[#171717]">
+              Pak<span className="text-[#B7D92B]">Mart</span>
             </h1>
           </Link>
 
@@ -70,7 +70,7 @@ export function Layout() {
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
               />
-              <button type="submit" className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white px-4 py-2 transition-colors">
+              <button type="submit" className="bg-[#171717] hover:bg-[#2a2a2a] text-[#B7D92B] px-4 py-2 transition-colors">
                 <Search size={16} />
               </button>
             </div>
@@ -82,7 +82,7 @@ export function Layout() {
               <Link to="/account" className="relative p-2 hover:bg-[var(--color-bg-tertiary)] transition-colors hidden sm:block">
                 <Bell size={18} className="text-[var(--color-text-secondary)]" />
                 {unreadNotifications > 0 && (
-                  <span className="absolute top-1 right-1 bg-[var(--color-accent)] text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center font-medium">
+                  <span className="absolute top-1 right-1 bg-[#B7D92B] text-[#171717] text-[9px] w-3.5 h-3.5 flex items-center justify-center font-bold">
                     {unreadNotifications}
                   </span>
                 )}
@@ -96,7 +96,7 @@ export function Layout() {
             <Link to="/cart" className="relative p-2 hover:bg-[var(--color-bg-tertiary)] transition-colors">
               <ShoppingCart size={18} className="text-[var(--color-text-secondary)]" />
               {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-[var(--color-accent)] text-white text-[9px] w-4 h-4 flex items-center justify-center font-medium">
+                <span className="absolute -top-0.5 -right-0.5 bg-[#B7D92B] text-[#171717] text-[9px] w-4 h-4 flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
@@ -108,7 +108,7 @@ export function Layout() {
                 <span className="text-xs font-medium">{user?.name?.split(' ')[0]}</span>
               </Link>
             ) : (
-              <Link to="/login" className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[var(--color-accent)] text-white text-xs font-medium hover:bg-[var(--color-accent-hover)] transition-colors">
+              <Link to="/login" className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#171717] text-[#B7D92B] text-xs font-bold hover:bg-[#2a2a2a] transition-colors">
                 <User size={14} /> Login
               </Link>
             )}
@@ -126,7 +126,7 @@ export function Layout() {
               <div className="relative">
                 <button
                   onClick={() => setCategoryMenuOpen(!categoryMenuOpen)}
-                  className="flex items-center gap-2 px-3 h-full bg-[var(--color-text)] text-white text-xs font-medium hover:bg-[var(--color-text-secondary)] transition-colors"
+                  className="flex items-center gap-2 px-3 h-full bg-[#171717] text-[#B7D92B] text-xs font-bold hover:bg-[#2a2a2a] transition-colors"
                 >
                   <Menu size={14} />
                   All Categories
@@ -166,7 +166,7 @@ export function Layout() {
                   {cat.name}
                 </Link>
               ))}
-              <Link to="/seller" className="ml-auto flex items-center gap-1.5 px-3 h-full text-xs text-[var(--color-success)] hover:bg-[var(--color-bg-tertiary)] transition-colors whitespace-nowrap font-medium">
+              <Link to="/seller" className="ml-auto flex items-center gap-1.5 px-3 h-full text-xs text-[#B7D92B] hover:bg-[#171717] hover:text-[#B7D92B] transition-colors whitespace-nowrap font-bold">
                 <Package size={14} /> Sell on PakMart
               </Link>
             </div>
@@ -222,11 +222,11 @@ export function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[var(--color-text)] text-[var(--color-border)] mt-12">
+      <footer className="bg-[#171717] text-[#EDEFE7] mt-12">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-white font-bold text-lg mb-4">PakMart</h3>
+              <h3 className="text-[#B7D92B] font-black text-lg mb-4">PakMart</h3>
               <p className="text-xs text-[var(--color-text-muted)] mb-4 leading-relaxed">Pakistan's largest online marketplace. Shop millions of products at the best prices with secure payments and fast delivery.</p>
               <div className="flex gap-2">
                 {['facebook', 'twitter', 'instagram', 'linkedin'].map(social => (
@@ -267,10 +267,10 @@ export function Layout() {
                 </div>
               </div>
               <div className="mt-4">
-                <h5 className="text-white text-xs font-medium mb-2">Newsletter</h5>
+                <h5 className="text-[#B7D92B] text-xs font-bold mb-2">Newsletter</h5>
                 <div className="flex">
-                  <input type="email" placeholder="Your email" className="flex-1 px-3 py-2 bg-transparent border border-[var(--color-text-secondary)] text-xs outline-none focus:border-white" />
-                  <button className="px-3 py-2 bg-[var(--color-accent)] text-xs font-medium hover:bg-[var(--color-accent-hover)]">Subscribe</button>
+                  <input type="email" placeholder="Your email" className="flex-1 px-3 py-2 bg-transparent border border-[#404040] text-xs outline-none focus:border-[#B7D92B] text-[#EDEFE7]" />
+                  <button className="px-3 py-2 bg-[#B7D92B] text-[#171717] text-xs font-bold hover:bg-[#9FC020]">Subscribe</button>
                 </div>
               </div>
             </div>

@@ -57,7 +57,7 @@ export function AdminDashboard() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-colors ${activeTab === item.id ? 'bg-[var(--color-text)] text-white' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-colors ${activeTab === item.id ? 'bg-[#171717] text-[#B7D92B]' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
                 >
                   <item.icon size={14} />
                   {item.label}

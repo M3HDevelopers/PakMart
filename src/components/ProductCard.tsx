@@ -32,13 +32,13 @@ export function ProductCard({ product, index = 0 }: Props) {
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {product.discount > 0 && (
-            <span className="bg-[var(--color-danger)] text-white text-[10px] px-1.5 py-0.5 font-semibold tracking-wide">-{product.discount}%</span>
+            <span className="bg-[#B7D92B] text-[#171717] text-[10px] px-1.5 py-0.5 font-bold tracking-wide">-{product.discount}%</span>
           )}
           {product.isNew && (
-            <span className="bg-[var(--color-text)] text-white text-[10px] px-1.5 py-0.5 font-semibold tracking-wide">NEW</span>
+            <span className="bg-[#171717] text-[#B7D92B] text-[10px] px-1.5 py-0.5 font-bold tracking-wide">NEW</span>
           )}
           {product.sponsored && (
-            <span className="bg-[var(--color-text-muted)] text-white text-[10px] px-1.5 py-0.5 font-medium">AD</span>
+            <span className="bg-[#737373] text-white text-[10px] px-1.5 py-0.5 font-medium">AD</span>
           )}
         </div>
         {/* Wishlist */}
@@ -51,7 +51,7 @@ export function ProductCard({ product, index = 0 }: Props) {
         </button>
         {/* Free Shipping */}
         {product.freeShipping && (
-          <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-white border border-[var(--color-border)] text-[var(--color-success)] text-[10px] px-1.5 py-0.5 font-medium">
+          <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-[#171717] text-[#B7D92B] text-[10px] px-1.5 py-0.5 font-bold">
             <Truck size={10} />
             Free Shipping
           </div>
@@ -89,7 +89,7 @@ export function ProductCard({ product, index = 0 }: Props) {
         </div>
         <button
           onClick={() => addToCart(product)}
-          className="mt-2.5 w-full py-2 bg-[var(--color-text)] text-white text-[11px] font-medium hover:bg-[var(--color-accent)] transition-colors opacity-0 group-hover:opacity-100"
+          className="mt-2.5 w-full py-2 bg-[#171717] text-[#B7D92B] text-[11px] font-bold hover:bg-[#B7D92B] hover:text-[#171717] transition-colors opacity-0 group-hover:opacity-100"
         >
           Add to Cart
         </button>
