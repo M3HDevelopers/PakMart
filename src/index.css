@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg: #FFFFFF;
+    --color-bg-secondary: #EDEFE7;
+    --color-bg-tertiary: #E2E4DC;
+    --color-border: #D4D6CE;
+    --color-border-strong: #B8BAB2;
+    --color-text: #171717;
+    --color-text-secondary: #404040;
+    --color-text-muted: #737373;
+    --color-accent: #B7D92B;
+    --color-accent-hover: #9FC020;
+    --color-accent-light: #F4FBE6;
+    --color-accent-dark: #7A9118;
+    --color-success: #15803d;
+    --color-warning: #a16207;
+    --color-danger: #b91c1c;
+    --color-info: #1d4ed8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #B8BAB2 transparent;
+  }
+}
+
+@layer utilities {
+  .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
+  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+}
