@@ -1,15 +1,50 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f8f8f8;
+    --color-bg-tertiary: #f0f0f0;
+    --color-border: #e5e5e5;
+    --color-border-strong: #d4d4d4;
+    --color-text: #1a1a1a;
+    --color-text-secondary: #525252;
+    --color-text-muted: #737373;
+    --color-accent: #c2410c;
+    --color-accent-hover: #9a3412;
+    --color-accent-light: #fff7ed;
+    --color-success: #15803d;
+    --color-warning: #a16207;
+    --color-danger: #b91c1c;
+    --color-info: #1d4ed8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: #d1d5db transparent;
+    scrollbar-color: #d4d4d4 transparent;
   }
 }
 
@@ -25,5 +60,11 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+  }
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 }

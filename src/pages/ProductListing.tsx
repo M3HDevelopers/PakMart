@@ -1,6 +1,6 @@
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { useState, useMemo } from 'react';
-import { Filter, X, SlidersHorizontal, Grid3X3, List } from 'lucide-react';
+import { Filter, X, Grid3X3, List, ChevronRight, Home } from 'lucide-react';
 import { products, categories } from '../data/mockData';
 import { ProductCard } from '../components/ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -63,21 +63,21 @@ export function ProductListing() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-        <a href="/" className="hover:text-orange-600">Home</a>
-        <span>/</span>
-        <span className="text-gray-800 font-medium">{category?.name || 'All Products'}</span>
-        {subcategory && (<><span>/</span><span className="text-gray-800">{subcategory.name}</span></>)}
+      <div className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] mb-4">
+        <Link to="/" className="hover:text-[var(--color-accent)] flex items-center gap-1"><Home size={12} /> Home</Link>
+        <ChevronRight size={10} />
+        <span className="text-[var(--color-text)] font-medium">{category?.name || 'All Products'}</span>
+        {subcategory && (<><ChevronRight size={10} /><span>{subcategory.name}</span></>)}
       </div>
 
       <div className="flex gap-6">
         {/* Sidebar Filters - Desktop */}
-        <aside className="hidden lg:block w-64 flex-shrink-0">
-          <div className="bg-white rounded-xl p-4 shadow-sm sticky top-24 space-y-6">
+        <aside className="hidden lg:block w-60 flex-shrink-0">
+          <div className="bg-white border border-[var(--color-border)] p-4 sticky top-24 space-y-5">
             <div className="flex items-center justify-between">
-              <h3 className="font-bold text-gray-800">Filters</h3>
+              <h3 className="text-sm font-semibold text-[var(--color-text)]">Filters</h3>
               {activeFilterCount > 0 && (
-                <button onClick={clearFilters} className="text-xs text-orange-600 hover:underline">Clear All</button>
+                <button onClick={clearFilters} className="text-[10px] text-[var(--color-accent)] font-medium hover:underline">Clear All</button>
               )}
             </div>
 
@@ -148,17 +148,17 @@ export function ProductListing() {
         {/* Main Content */}
         <div className="flex-1">
           {/* Toolbar */}
-          <div className="flex items-center justify-between bg-white rounded-xl p-3 shadow-sm mb-4">
+          <div className="flex items-center justify-between bg-white border border-[var(--color-border)] p-3 mb-4">
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowFilters(!showFilters)} className="lg:hidden flex items-center gap-2 px-3 py-2 border rounded-lg text-sm">
-                <Filter size={16} />
+              <button onClick={() => setShowFilters(!showFilters)} className="lg:hidden flex items-center gap-2 px-3 py-1.5 border border-[var(--color-border)] text-xs font-medium">
+                <Filter size={14} />
                 Filters
-                {activeFilterCount > 0 && <span className="bg-orange-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">{activeFilterCount}</span>}
+                {activeFilterCount > 0 && <span className="bg-[var(--color-accent)] text-white text-[10px] w-4 h-4 flex items-center justify-center">{activeFilterCount}</span>}
               </button>
-              <span className="text-sm text-gray-500">{filteredProducts.length} products found</span>
+              <span className="text-xs text-[var(--color-text-muted)]">{filteredProducts.length} products</span>
             </div>
-            <div className="flex items-center gap-3">
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="text-sm border rounded-lg px-3 py-2 outline-none focus:border-orange-500">
+            <div className="flex items-center gap-2">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="text-xs border border-[var(--color-border)] px-2 py-1.5 outline-none focus:border-[var(--color-accent)]">
                 <option value="relevance">Relevance</option>
                 <option value="price_low">Price: Low to High</option>
                 <option value="price_high">Price: High to Low</option>
@@ -167,32 +167,32 @@ export function ProductListing() {
                 <option value="discount">Biggest Discount</option>
                 <option value="popular">Most Popular</option>
               </select>
-              <div className="hidden sm:flex border rounded-lg overflow-hidden">
-                <button onClick={() => setViewMode('grid')} className={`p-2 ${viewMode === 'grid' ? 'bg-orange-600 text-white' : 'text-gray-500'}`}><Grid3X3 size={16} /></button>
-                <button onClick={() => setViewMode('list')} className={`p-2 ${viewMode === 'list' ? 'bg-orange-600 text-white' : 'text-gray-500'}`}><List size={16} /></button>
+              <div className="hidden sm:flex border border-[var(--color-border)]">
+                <button onClick={() => setViewMode('grid')} className={`p-1.5 ${viewMode === 'grid' ? 'bg-[var(--color-text)] text-white' : 'text-[var(--color-text-muted)]'}`}><Grid3X3 size={14} /></button>
+                <button onClick={() => setViewMode('list')} className={`p-1.5 ${viewMode === 'list' ? 'bg-[var(--color-text)] text-white' : 'text-[var(--color-text-muted)]'}`}><List size={14} /></button>
               </div>
             </div>
           </div>
 
           {/* Active Filters */}
           {activeFilterCount > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-1.5 mb-4">
               {selectedBrands.map(brand => (
-                <span key={brand} className="flex items-center gap-1 bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs">
+                <span key={brand} className="flex items-center gap-1 bg-[var(--color-accent-light)] text-[var(--color-accent)] border border-[var(--color-accent)]/20 px-2 py-1 text-[10px] font-medium">
                   {brand}
-                  <button onClick={() => toggleBrand(brand)}><X size={12} /></button>
+                  <button onClick={() => toggleBrand(brand)}><X size={10} /></button>
                 </span>
               ))}
               {minRating > 0 && (
-                <span className="flex items-center gap-1 bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs">
-                  {minRating}★ & above
-                  <button onClick={() => setMinRating(0)}><X size={12} /></button>
+                <span className="flex items-center gap-1 bg-[var(--color-accent-light)] text-[var(--color-accent)] border border-[var(--color-accent)]/20 px-2 py-1 text-[10px] font-medium">
+                  {minRating}+ stars
+                  <button onClick={() => setMinRating(0)}><X size={10} /></button>
                 </span>
               )}
               {freeShippingOnly && (
-                <span className="flex items-center gap-1 bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs">
+                <span className="flex items-center gap-1 bg-[var(--color-accent-light)] text-[var(--color-accent)] border border-[var(--color-accent)]/20 px-2 py-1 text-[10px] font-medium">
                   Free Shipping
-                  <button onClick={() => setFreeShippingOnly(false)}><X size={12} /></button>
+                  <button onClick={() => setFreeShippingOnly(false)}><X size={10} /></button>
                 </span>
               )}
             </div>
@@ -222,9 +222,9 @@ export function ProductListing() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
-              <p className="text-gray-500 text-lg">No products found</p>
-              <button onClick={clearFilters} className="mt-4 text-orange-600 hover:underline">Clear all filters</button>
+            <div className="text-center py-16 bg-white border border-[var(--color-border)]">
+              <p className="text-[var(--color-text-muted)] text-sm">No products found</p>
+              <button onClick={clearFilters} className="mt-3 text-[var(--color-accent)] text-xs font-medium hover:underline">Clear all filters</button>
             </div>
           )}
         </div>

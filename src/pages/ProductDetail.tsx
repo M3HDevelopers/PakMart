@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Star, Heart, ShoppingCart, Truck, Shield, RotateCcw, Share2, Minus, Plus, Check, ChevronRight, ThumbsUp } from 'lucide-react';
+import { Star, Heart, ShoppingCart, Truck, ShieldCheck, RotateCcw, Share2, Minus, Plus, Check, ChevronRight, ThumbsUp } from 'lucide-react';
 import { products, mockReviews } from '../data/mockData';
 import { useStore } from '../store/useStore';
 import { ProductCard } from '../components/ProductCard';
@@ -49,7 +49,7 @@ export function ProductDetail() {
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Image Gallery */}
         <div className="space-y-4">
-          <div className="relative bg-white rounded-2xl overflow-hidden aspect-square">
+          <div className="relative bg-white border border-[var(--color-border)] overflow-hidden aspect-square">
             <motion.img
               key={selectedImage}
               initial={{ opacity: 0 }}
@@ -59,10 +59,10 @@ export function ProductDetail() {
               className="w-full h-full object-cover"
             />
             {product.discount > 0 && (
-              <span className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-lg font-bold">-{product.discount}%</span>
+              <span className="absolute top-3 left-3 bg-[var(--color-danger)] text-white px-2 py-0.5 text-xs font-semibold">-{product.discount}%</span>
             )}
-            <button onClick={() => toggleWishlist(product.id)} className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center">
-              <Heart size={20} className={inWishlist ? 'fill-red-500 text-red-500' : 'text-gray-400'} />
+            <button onClick={() => toggleWishlist(product.id)} className="absolute top-3 right-3 w-8 h-8 bg-white border border-[var(--color-border)] flex items-center justify-center hover:border-[var(--color-accent)]">
+              <Heart size={16} className={inWishlist ? 'fill-[var(--color-danger)] text-[var(--color-danger)]' : 'text-[var(--color-text-muted)]'} />
             </button>
           </div>
           <div className="flex gap-2">
@@ -94,17 +94,17 @@ export function ProductDetail() {
           </div>
 
           {/* Price */}
-          <div className="bg-orange-50 rounded-xl p-4">
+          <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] p-4">
             <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-bold text-orange-600">Rs. {product.price.toLocaleString()}</span>
+              <span className="text-2xl font-bold text-[var(--color-text)]">Rs. {product.price.toLocaleString()}</span>
               {product.originalPrice > product.price && (
                 <>
-                  <span className="text-lg text-gray-400 line-through">Rs. {product.originalPrice.toLocaleString()}</span>
-                  <span className="bg-red-500 text-white px-2 py-0.5 rounded text-sm font-medium">Save Rs. {(product.originalPrice - product.price).toLocaleString()}</span>
+                  <span className="text-sm text-[var(--color-text-muted)] line-through">Rs. {product.originalPrice.toLocaleString()}</span>
+                  <span className="bg-[var(--color-danger)] text-white px-1.5 py-0.5 text-[10px] font-semibold">Save Rs. {(product.originalPrice - product.price).toLocaleString()}</span>
                 </>
               )}
             </div>
-            <p className="text-sm text-gray-500 mt-1">Inclusive of all taxes</p>
+            <p className="text-xs text-[var(--color-text-muted)] mt-1">Inclusive of all taxes</p>
           </div>
 
           {/* Stock */}
@@ -135,7 +135,7 @@ export function ProductDetail() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Shield size={20} className="text-gray-500" />
+              <ShieldCheck size={20} className="text-[var(--color-text-muted)]" />
               <div>
                 <p className="text-sm font-medium">100% Genuine Product</p>
                 <p className="text-xs text-gray-500">Verified seller with warranty</p>
@@ -155,18 +155,18 @@ export function ProductDetail() {
           </div>
 
           {/* Quantity & Add to Cart */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center border rounded-lg">
-              <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-gray-100"><Minus size={16} /></button>
-              <span className="px-4 py-2 font-medium">{quantity}</span>
-              <button onClick={() => setQuantity(Math.min(product.stock, quantity + 1))} className="px-3 py-2 hover:bg-gray-100"><Plus size={16} /></button>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center border border-[var(--color-border)]">
+              <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-[var(--color-bg-tertiary)]"><Minus size={14} /></button>
+              <span className="px-4 py-2 text-sm font-medium border-x border-[var(--color-border)]">{quantity}</span>
+              <button onClick={() => setQuantity(Math.min(product.stock, quantity + 1))} className="px-3 py-2 hover:bg-[var(--color-bg-tertiary)]"><Plus size={14} /></button>
             </div>
-            <button onClick={handleAddToCart} disabled={product.stock === 0} className="flex-1 flex items-center justify-center gap-2 bg-orange-600 text-white py-3 rounded-lg font-medium hover:bg-orange-700 disabled:bg-gray-300 transition-colors">
-              <ShoppingCart size={20} />
+            <button onClick={handleAddToCart} disabled={product.stock === 0} className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-accent)] text-white py-2.5 text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:bg-[var(--color-border)] disabled:text-[var(--color-text-muted)] transition-colors">
+              <ShoppingCart size={16} />
               {addedToCart ? 'Added!' : 'Add to Cart'}
             </button>
           </div>
-          <Link to="/checkout" className="block w-full text-center bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors">
+          <Link to="/checkout" className="block w-full text-center bg-[var(--color-text)] text-white py-2.5 text-sm font-medium hover:bg-[var(--color-text-secondary)] transition-colors">
             Buy Now
           </Link>
 

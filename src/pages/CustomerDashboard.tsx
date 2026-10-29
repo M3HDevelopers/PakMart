@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Package, Heart, MapPin, Bell, Settings, LogOut, ShoppingBag, Star, ChevronRight, Clock, Truck, CheckCircle, XCircle, RotateCcw } from 'lucide-react';
+import { User, Package, Heart, MapPin, Bell, Settings, LogOut, ShoppingBag, Star, ChevronRight, Clock, Truck, CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { products } from '../data/mockData';
 
@@ -28,7 +28,7 @@ export function CustomerDashboard() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'delivered': return <CheckCircle size={16} className="text-green-500" />;
+      case 'delivered': return <CheckCircle2 size={16} className="text-[var(--color-success)]" />;
       case 'shipped': return <Truck size={16} className="text-blue-500" />;
       case 'cancelled': return <XCircle size={16} className="text-red-500" />;
       case 'return_requested': return <RotateCcw size={16} className="text-orange-500" />;
@@ -52,10 +52,10 @@ export function CustomerDashboard() {
       <div className="grid lg:grid-cols-4 gap-6">
         {/* Sidebar */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl shadow-sm p-4 sticky top-24">
-            <div className="flex items-center gap-3 pb-4 border-b mb-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <User size={24} className="text-orange-600" />
+          <div className="bg-white border border-[var(--color-border)] p-4 sticky top-24">
+            <div className="flex items-center gap-3 pb-4 border-b border-[var(--color-border)] mb-4">
+              <div className="w-10 h-10 bg-[var(--color-accent-light)] flex items-center justify-center">
+                <User size={18} className="text-[var(--color-accent)]" />
               </div>
               <div>
                 <p className="font-medium">{user?.name}</p>
@@ -64,7 +64,7 @@ export function CustomerDashboard() {
             </div>
             <nav className="space-y-1">
               {tabs.map(tab => (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${activeTab === tab.id ? 'bg-orange-50 text-orange-600 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-medium transition-colors ${activeTab === tab.id ? 'bg-[var(--color-text)] text-white' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}>
                   <tab.icon size={18} />
                   {tab.label}
                   {tab.id === 'notifications' && notifications.filter(n => !n.read).length > 0 && (

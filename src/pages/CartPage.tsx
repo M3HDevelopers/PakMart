@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, Tag } from 'lucide-react';
+import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, Tag, Lock } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { useState } from 'react';
 import { mockCoupons } from '../data/mockData';
@@ -33,11 +33,11 @@ export function CartPage() {
   if (cart.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-        <ShoppingBag size={64} className="mx-auto text-gray-300 mb-4" />
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Your Cart is Empty</h2>
-        <p className="text-gray-500 mb-6">Looks like you haven't added anything to your cart yet.</p>
-        <Link to="/" className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-700">
-          Continue Shopping <ArrowRight size={18} />
+        <ShoppingBag size={48} className="mx-auto text-[var(--color-border)] mb-4" />
+        <h2 className="text-xl font-semibold text-[var(--color-text)] mb-2">Your Cart is Empty</h2>
+        <p className="text-sm text-[var(--color-text-muted)] mb-6">Looks like you haven't added anything to your cart yet.</p>
+        <Link to="/" className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-white px-5 py-2.5 text-sm font-medium hover:bg-[var(--color-accent-hover)]">
+          Continue Shopping <ArrowRight size={16} />
         </Link>
       </div>
     );
@@ -45,12 +45,12 @@ export function CartPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Shopping Cart ({cart.length} items)</h1>
+      <h1 className="text-xl font-semibold text-[var(--color-text)] mb-6">Shopping Cart ({cart.length} items)</h1>
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
           {cart.map(item => (
-            <div key={item.productId} className="bg-white rounded-xl p-4 shadow-sm flex gap-4">
+            <div key={item.productId} className="bg-white border border-[var(--color-border)] p-4 flex gap-4">
               <Link to={`/product/${item.product.slug}`}>
                 <img src={item.product.images[0]} alt={item.product.name} className="w-24 h-24 object-cover rounded-lg" />
               </Link>
@@ -80,8 +80,8 @@ export function CartPage() {
         </div>
 
         {/* Order Summary */}
-        <div className="bg-white rounded-xl p-6 shadow-sm h-fit sticky top-24">
-          <h3 className="font-bold text-lg mb-4">Order Summary</h3>
+        <div className="bg-white border border-[var(--color-border)] p-5 h-fit sticky top-24">
+          <h3 className="text-sm font-semibold mb-4">Order Summary</h3>
           
           {/* Coupon */}
           <div className="mb-4">
@@ -125,15 +125,15 @@ export function CartPage() {
             </div>
           </div>
 
-          <Link to="/checkout" className="block w-full mt-6 text-center bg-orange-600 text-white py-3 rounded-lg font-medium hover:bg-orange-700 transition-colors">
+          <Link to="/checkout" className="block w-full mt-6 text-center bg-[var(--color-accent)] text-white py-2.5 text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">
             Proceed to Checkout
           </Link>
-          <Link to="/" className="block w-full mt-3 text-center text-orange-600 text-sm hover:underline">
+          <Link to="/" className="block w-full mt-3 text-center text-[var(--color-accent)] text-xs font-medium hover:underline">
             Continue Shopping
           </Link>
 
-          <div className="mt-4 p-3 bg-green-50 rounded-lg text-xs text-green-700">
-            🔒 Secure checkout. Your data is protected.
+          <div className="mt-4 p-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-muted)] flex items-center gap-1.5">
+            <Lock size={10} /> Secure checkout. Your data is protected.
           </div>
         </div>
       </div>

@@ -25,24 +25,24 @@ export function LoginPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white border border-[var(--color-border)] p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
-            <p className="text-gray-500 mt-1">Login to your PakMart account</p>
+            <h1 className="text-xl font-semibold text-[var(--color-text)]">Welcome Back</h1>
+            <p className="text-xs text-[var(--color-text-muted)] mt-1">Login to your PakMart account</p>
           </div>
           
           {/* Demo accounts */}
-          <div className="bg-blue-50 rounded-lg p-3 mb-6 text-xs">
-            <p className="font-medium text-blue-800 mb-1">Demo Accounts:</p>
-            <p className="text-blue-600">Customer: ahmed@example.com</p>
-            <p className="text-blue-600">Seller: seller@techzone.pk</p>
-            <p className="text-blue-600">Admin: admin@pakmart.pk</p>
-            <p className="text-blue-600">Super Admin: superadmin@pakmart.pk</p>
-            <p className="text-blue-500 mt-1">Use any password to login</p>
+          <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] p-3 mb-6 text-xs">
+            <p className="font-medium text-[var(--color-text)] mb-1">Demo Accounts:</p>
+            <p className="text-[var(--color-text-secondary)]">Customer: ahmed@example.com</p>
+            <p className="text-[var(--color-text-secondary)]">Seller: seller@techzone.pk</p>
+            <p className="text-[var(--color-text-secondary)]">Admin: admin@pakmart.pk</p>
+            <p className="text-[var(--color-text-secondary)]">Super Admin: superadmin@pakmart.pk</p>
+            <p className="text-[var(--color-text-muted)] mt-1">Use any password to login</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">{error}</div>}
+            {error && <div className="bg-red-50 text-[var(--color-danger)] text-xs p-3 border border-red-200">{error}</div>}
             <div>
               <label className="text-sm font-medium text-gray-700">Email</label>
               <div className="relative mt-1">
@@ -67,11 +67,11 @@ export function LoginPage() {
               </label>
               <a href="#" className="text-sm text-orange-600 hover:underline">Forgot password?</a>
             </div>
-            <button type="submit" className="w-full py-3 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors">Login</button>
+            <button type="submit" className="w-full py-2.5 bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">Login</button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-6">
-            Don't have an account? <Link to="/register" className="text-orange-600 font-medium hover:underline">Register</Link>
+          <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
+            Don't have an account? <Link to="/register" className="text-[var(--color-accent)] font-medium hover:underline">Register</Link>
           </p>
         </div>
       </div>
@@ -97,13 +97,13 @@ export function RegisterPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white border border-[var(--color-border)] p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-800">Create Account</h1>
-            <p className="text-gray-500 mt-1">Join PakMart and start shopping</p>
+            <h1 className="text-xl font-semibold text-[var(--color-text)]">Create Account</h1>
+            <p className="text-xs text-[var(--color-text-muted)] mt-1">Join PakMart and start shopping</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">{error}</div>}
+            {error && <div className="bg-red-50 text-[var(--color-danger)] text-xs p-3 border border-red-200">{error}</div>}
             <div>
               <label className="text-sm font-medium text-gray-700">Full Name *</label>
               <input type="text" value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} className="w-full mt-1 px-4 py-3 border rounded-lg outline-none focus:border-orange-500" />
@@ -128,10 +128,10 @@ export function RegisterPage() {
               <input type="checkbox" className="accent-orange-600 mt-0.5" />
               <span className="text-gray-600">I agree to the <a href="#" className="text-orange-600">Terms & Conditions</a> and <a href="#" className="text-orange-600">Privacy Policy</a></span>
             </label>
-            <button type="submit" className="w-full py-3 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors">Create Account</button>
+            <button type="submit" className="w-full py-2.5 bg-[var(--color-accent)] text-white text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors">Create Account</button>
           </form>
-          <p className="text-center text-sm text-gray-500 mt-6">
-            Already have an account? <Link to="/login" className="text-orange-600 font-medium hover:underline">Login</Link>
+          <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
+            Already have an account? <Link to="/login" className="text-[var(--color-accent)] font-medium hover:underline">Login</Link>
           </p>
         </div>
       </div>

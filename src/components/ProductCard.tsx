@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Heart, Star, Truck, Shield } from 'lucide-react';
+import { Heart, Star, Truck, ShieldCheck } from 'lucide-react';
 import { Product } from '../types';
 import { useStore } from '../store/useStore';
 import { motion } from 'framer-motion';
@@ -15,80 +15,81 @@ export function ProductCard({ product, index = 0 }: Props) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
-      className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group border border-gray-100"
+      transition={{ delay: index * 0.03, duration: 0.2 }}
+      className="bg-white border border-[var(--color-border)] group relative"
     >
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <Link to={`/product/${product.slug}`}>
           <img
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-44 sm:h-52 object-cover group-hover:scale-[1.02] transition-transform duration-300"
+            loading="lazy"
           />
         </Link>
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {product.discount > 0 && (
-            <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded font-medium">-{product.discount}%</span>
+            <span className="bg-[var(--color-danger)] text-white text-[10px] px-1.5 py-0.5 font-semibold tracking-wide">-{product.discount}%</span>
           )}
           {product.isNew && (
-            <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded font-medium">NEW</span>
+            <span className="bg-[var(--color-text)] text-white text-[10px] px-1.5 py-0.5 font-semibold tracking-wide">NEW</span>
           )}
           {product.sponsored && (
-            <span className="bg-purple-500 text-white text-xs px-2 py-0.5 rounded font-medium">Sponsored</span>
+            <span className="bg-[var(--color-text-muted)] text-white text-[10px] px-1.5 py-0.5 font-medium">AD</span>
           )}
         </div>
         {/* Wishlist */}
         <button
           onClick={(e) => { e.preventDefault(); toggleWishlist(product.id); }}
-          className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center hover:bg-red-50 transition-colors"
+          className="absolute top-2 right-2 w-7 h-7 bg-white border border-[var(--color-border)] flex items-center justify-center hover:border-[var(--color-accent)] transition-colors"
+          aria-label="Add to wishlist"
         >
-          <Heart size={16} className={inWishlist ? 'fill-red-500 text-red-500' : 'text-gray-400'} />
+          <Heart size={13} className={inWishlist ? 'fill-[var(--color-danger)] text-[var(--color-danger)]' : 'text-[var(--color-text-muted)]'} />
         </button>
         {/* Free Shipping */}
         {product.freeShipping && (
-          <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-green-50 text-green-700 text-xs px-2 py-0.5 rounded">
-            <Truck size={12} />
+          <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-white border border-[var(--color-border)] text-[var(--color-success)] text-[10px] px-1.5 py-0.5 font-medium">
+            <Truck size={10} />
             Free Shipping
           </div>
         )}
       </div>
       <div className="p-3">
         <Link to={`/product/${product.slug}`}>
-          <h3 className="text-sm font-medium text-gray-800 line-clamp-2 hover:text-orange-600 transition-colors min-h-[2.5rem]">
+          <h3 className="text-xs font-medium text-[var(--color-text)] line-clamp-2 hover:text-[var(--color-accent)] transition-colors min-h-[2rem] leading-relaxed">
             {product.name}
           </h3>
         </Link>
-        <div className="mt-2 flex items-center gap-1">
-          <div className="flex items-center gap-0.5">
+        <div className="mt-1.5 flex items-center gap-1">
+          <div className="flex items-center gap-px">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} size={12} className={i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-200'} />
+              <Star key={i} size={10} className={i < Math.floor(product.rating) ? 'fill-[var(--color-warning)] text-[var(--color-warning)]' : 'text-[var(--color-border)]'} />
             ))}
           </div>
-          <span className="text-xs text-gray-500">({product.reviewCount})</span>
-          <span className="text-xs text-gray-400 ml-auto">{product.sold} sold</span>
+          <span className="text-[10px] text-[var(--color-text-muted)]">({product.reviewCount})</span>
         </div>
-        <div className="mt-2">
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-orange-600">Rs. {product.price.toLocaleString()}</span>
-            {product.originalPrice > product.price && (
-              <span className="text-sm text-gray-400 line-through">Rs. {product.originalPrice.toLocaleString()}</span>
+        <div className="mt-2 flex items-baseline gap-1.5">
+          <span className="text-sm font-semibold text-[var(--color-text)]">Rs. {product.price.toLocaleString()}</span>
+          {product.originalPrice > product.price && (
+            <span className="text-[10px] text-[var(--color-text-muted)] line-through">Rs. {product.originalPrice.toLocaleString()}</span>
+          )}
+        </div>
+        <div className="mt-2 flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            {product.verified && (
+              <span className="flex items-center gap-0.5 text-[10px] text-[var(--color-info)]">
+                <ShieldCheck size={10} /> Verified
+              </span>
             )}
           </div>
-        </div>
-        <div className="mt-2 flex items-center gap-2">
-          {product.verified && (
-            <span className="flex items-center gap-0.5 text-xs text-blue-600">
-              <Shield size={10} /> Verified
-            </span>
-          )}
-          <span className="text-xs text-gray-400">{product.seller}</span>
+          <span className="text-[10px] text-[var(--color-text-muted)]">{product.sold} sold</span>
         </div>
         <button
           onClick={() => addToCart(product)}
-          className="mt-3 w-full py-2 bg-orange-600 text-white text-sm font-medium rounded-lg hover:bg-orange-700 transition-colors opacity-0 group-hover:opacity-100"
+          className="mt-2.5 w-full py-2 bg-[var(--color-text)] text-white text-[11px] font-medium hover:bg-[var(--color-accent)] transition-colors opacity-0 group-hover:opacity-100"
         >
           Add to Cart
         </button>

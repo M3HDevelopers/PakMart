@@ -1,9 +1,20 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { Search, ShoppingCart, Heart, User, Menu, X, Bell, ChevronDown, MapPin, Package } from 'lucide-react';
+import { Search, ShoppingCart, Heart, User, Menu, X, Bell, ChevronDown, MapPin, Package, Smartphone, Shirt, Home, Sparkles, Dumbbell, Salad, Monitor, Zap, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
 import { categories } from '../data/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const categoryIcons: Record<string, React.ReactNode> = {
+  'electronics': <Smartphone size={18} />,
+  'fashion': <Shirt size={18} />,
+  'home-living': <Home size={18} />,
+  'beauty': <Sparkles size={18} />,
+  'sports': <Dumbbell size={18} />,
+  'groceries': <Salad size={18} />,
+  'computers': <Monitor size={18} />,
+  'appliances': <Zap size={18} />,
+};
 
 export function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,131 +33,123 @@ export function Layout() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-[Inter]">
+    <div className="min-h-screen bg-[var(--color-bg-secondary)] font-[Inter]">
       {/* Announcement Bar */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white text-center py-2 text-sm font-medium">
-        🎉 Mega Sale Live! Up to 70% OFF on Electronics | Free Shipping on Orders over Rs. 3,000 🚚
+      <div className="bg-[var(--color-text)] text-white text-center py-2 text-xs font-medium tracking-wide">
+        Free shipping on orders over Rs. 3,000 — Same-day dispatch on orders before 2 PM
       </div>
 
       {/* Main Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex items-center gap-4">
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-orange-600">Pak<span className="text-green-600">Mart</span></h1>
-            </Link>
+      <header className="bg-white border-b border-[var(--color-border)] sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-4">
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0">
+            <h1 className="text-xl font-bold tracking-tight text-[var(--color-text)]">
+              Pak<span className="text-[var(--color-accent)]">Mart</span>
+            </h1>
+          </Link>
 
-            {/* Delivery Location */}
-            <div className="hidden md:flex items-center gap-1 text-sm cursor-pointer hover:text-orange-600">
-              <MapPin size={16} />
-              <div>
-                <p className="text-gray-500 text-xs">Deliver to</p>
-                <p className="font-medium">Islamabad</p>
-              </div>
+          {/* Delivery Location */}
+          <div className="hidden lg:flex items-center gap-1.5 text-sm cursor-pointer hover:text-[var(--color-accent)] transition-colors border-l border-[var(--color-border)] pl-4">
+            <MapPin size={14} className="text-[var(--color-text-muted)]" />
+            <div>
+              <p className="text-[10px] text-[var(--color-text-muted)] leading-none">Deliver to</p>
+              <p className="font-medium text-xs leading-tight mt-0.5">Islamabad</p>
             </div>
+          </div>
 
-            {/* Search Bar */}
-            <form onSubmit={handleSearch} className="flex-1 relative">
-              <div className={`flex items-center border-2 rounded-lg overflow-hidden transition-colors ${searchFocused ? 'border-orange-500' : 'border-gray-200'}`}>
-                <input
-                  type="text"
-                  placeholder="Search products, brands and categories..."
-                  className="flex-1 px-4 py-2.5 outline-none text-sm"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => setSearchFocused(false)}
-                />
-                <button type="submit" className="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 transition-colors">
-                  <Search size={20} />
-                </button>
-              </div>
-            </form>
+          {/* Search Bar */}
+          <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
+            <div className={`flex items-center border transition-colors ${searchFocused ? 'border-[var(--color-accent)]' : 'border-[var(--color-border)]'}`}>
+              <input
+                type="text"
+                placeholder="Search products, brands..."
+                className="flex-1 px-3 py-2 outline-none text-sm bg-transparent"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
+              />
+              <button type="submit" className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white px-4 py-2 transition-colors">
+                <Search size={16} />
+              </button>
+            </div>
+          </form>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-3">
-              {/* Notifications */}
-              {isAuthenticated && (
-                <Link to="/account" className="relative p-2 hover:bg-gray-100 rounded-full">
-                  <Bell size={22} />
-                  {unreadNotifications > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
-                      {unreadNotifications}
-                    </span>
-                  )}
-                </Link>
-              )}
-
-              {/* Wishlist */}
-              <Link to="/wishlist" className="hidden sm:block p-2 hover:bg-gray-100 rounded-full">
-                <Heart size={22} />
-              </Link>
-
-              {/* Cart */}
-              <Link to="/cart" className="relative p-2 hover:bg-gray-100 rounded-full">
-                <ShoppingCart size={22} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-orange-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
-                    {cartCount}
+          {/* Right Actions */}
+          <div className="flex items-center gap-1">
+            {isAuthenticated && (
+              <Link to="/account" className="relative p-2 hover:bg-[var(--color-bg-tertiary)] transition-colors hidden sm:block">
+                <Bell size={18} className="text-[var(--color-text-secondary)]" />
+                {unreadNotifications > 0 && (
+                  <span className="absolute top-1 right-1 bg-[var(--color-accent)] text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center font-medium">
+                    {unreadNotifications}
                   </span>
                 )}
               </Link>
+            )}
 
-              {/* Account */}
-              {isAuthenticated ? (
-                <Link to="/account" className="hidden sm:flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-lg">
-                  <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                    <User size={16} className="text-orange-600" />
-                  </div>
-                  <span className="text-sm font-medium">{user?.name?.split(' ')[0]}</span>
-                </Link>
-              ) : (
-                <Link to="/login" className="hidden sm:flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 text-sm font-medium transition-colors">
-                  <User size={16} />
-                  Login
-                </Link>
+            <Link to="/wishlist" className="p-2 hover:bg-[var(--color-bg-tertiary)] transition-colors hidden sm:block">
+              <Heart size={18} className="text-[var(--color-text-secondary)]" />
+            </Link>
+
+            <Link to="/cart" className="relative p-2 hover:bg-[var(--color-bg-tertiary)] transition-colors">
+              <ShoppingCart size={18} className="text-[var(--color-text-secondary)]" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-[var(--color-accent)] text-white text-[9px] w-4 h-4 flex items-center justify-center font-medium">
+                  {cartCount}
+                </span>
               )}
+            </Link>
 
-              {/* Mobile Menu */}
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2">
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
+            {isAuthenticated ? (
+              <Link to="/account" className="hidden md:flex items-center gap-2 px-3 py-1.5 hover:bg-[var(--color-bg-tertiary)] transition-colors border border-[var(--color-border)]">
+                <User size={14} className="text-[var(--color-text-secondary)]" />
+                <span className="text-xs font-medium">{user?.name?.split(' ')[0]}</span>
+              </Link>
+            ) : (
+              <Link to="/login" className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[var(--color-accent)] text-white text-xs font-medium hover:bg-[var(--color-accent-hover)] transition-colors">
+                <User size={14} /> Login
+              </Link>
+            )}
+
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2">
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
 
         {/* Category Navigation */}
-        <nav className="border-t bg-white hidden md:block">
+        <nav className="border-t border-[var(--color-border)] bg-white hidden md:block">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-center gap-1 py-2 overflow-x-auto">
+            <div className="flex items-center gap-0.5 h-10 overflow-x-auto">
               <div className="relative">
                 <button
                   onClick={() => setCategoryMenuOpen(!categoryMenuOpen)}
-                  className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg font-medium text-sm hover:bg-orange-700 transition-colors"
+                  className="flex items-center gap-2 px-3 h-full bg-[var(--color-text)] text-white text-xs font-medium hover:bg-[var(--color-text-secondary)] transition-colors"
                 >
-                  <Menu size={16} />
+                  <Menu size={14} />
                   All Categories
-                  <ChevronDown size={14} />
+                  <ChevronDown size={12} />
                 </button>
                 <AnimatePresence>
                   {categoryMenuOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: -10 }}
+                      initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute top-full left-0 mt-1 bg-white shadow-xl rounded-lg border w-64 z-50 py-2"
+                      exit={{ opacity: 0, y: -4 }}
+                      className="absolute top-full left-0 mt-0 bg-white border border-[var(--color-border)] w-56 z-50"
                     >
                       {categories.map(cat => (
                         <Link
                           key={cat.id}
                           to={`/category/${cat.slug}`}
                           onClick={() => setCategoryMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2.5 hover:bg-orange-50 transition-colors"
+                          className="flex items-center gap-3 px-3 py-2.5 hover:bg-[var(--color-bg-tertiary)] transition-colors border-b border-[var(--color-border)] last:border-0"
                         >
-                          <span className="text-lg">{cat.icon}</span>
-                          <span className="text-sm font-medium">{cat.name}</span>
-                          <span className="ml-auto text-xs text-gray-400">{cat.productCount}</span>
+                          <span className="text-[var(--color-text-muted)]">{categoryIcons[cat.slug]}</span>
+                          <span className="text-xs font-medium">{cat.name}</span>
+                          <span className="ml-auto text-[10px] text-[var(--color-text-muted)]">{cat.productCount}</span>
                         </Link>
                       ))}
                     </motion.div>
@@ -157,15 +160,14 @@ export function Layout() {
                 <Link
                   key={cat.id}
                   to={`/category/${cat.slug}`}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-colors whitespace-nowrap"
+                  className="flex items-center gap-1.5 px-3 h-full text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-tertiary)] transition-colors whitespace-nowrap border-b-2 border-transparent hover:border-[var(--color-accent)]"
                 >
-                  <span>{cat.icon}</span>
+                  {categoryIcons[cat.slug]}
                   {cat.name}
                 </Link>
               ))}
-              <Link to="/seller" className="ml-auto flex items-center gap-1.5 px-3 py-2 text-sm text-green-700 hover:bg-green-50 rounded-lg transition-colors whitespace-nowrap font-medium">
-                <Package size={14} />
-                Become a Seller
+              <Link to="/seller" className="ml-auto flex items-center gap-1.5 px-3 h-full text-xs text-[var(--color-success)] hover:bg-[var(--color-bg-tertiary)] transition-colors whitespace-nowrap font-medium">
+                <Package size={14} /> Sell on PakMart
               </Link>
             </div>
           </div>
@@ -179,33 +181,33 @@ export function Layout() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b shadow-lg overflow-hidden"
+            className="md:hidden bg-white border-b border-[var(--color-border)] overflow-hidden"
           >
-            <div className="px-4 py-3 space-y-2">
+            <div className="px-4 py-3 space-y-1">
               {isAuthenticated && (
-                <Link to="/account" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
-                  <User size={20} className="text-orange-600" />
-                  <span className="font-medium">{user?.name}</span>
+                <Link to="/account" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-2.5 bg-[var(--color-bg-tertiary)]">
+                  <User size={16} className="text-[var(--color-accent)]" />
+                  <span className="text-sm font-medium">{user?.name}</span>
                 </Link>
               )}
               {!isAuthenticated && (
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-3 bg-orange-600 text-white rounded-lg">
-                  <User size={20} />
-                  <span className="font-medium">Login / Register</span>
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-2.5 bg-[var(--color-accent)] text-white">
+                  <User size={16} />
+                  <span className="text-sm font-medium">Login / Register</span>
                 </Link>
               )}
-              <Link to="/wishlist" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg">
-                <Heart size={20} />
-                <span>Wishlist</span>
+              <Link to="/wishlist" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-2.5 hover:bg-[var(--color-bg-tertiary)]">
+                <Heart size={16} />
+                <span className="text-sm">Wishlist</span>
               </Link>
-              <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg">
-                <ShoppingCart size={20} />
-                <span>Cart ({cartCount})</span>
+              <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-2.5 hover:bg-[var(--color-bg-tertiary)]">
+                <ShoppingCart size={16} />
+                <span className="text-sm">Cart ({cartCount})</span>
               </Link>
-              <hr />
+              <hr className="border-[var(--color-border)]" />
               {categories.map(cat => (
-                <Link key={cat.id} to={`/category/${cat.slug}`} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg">
-                  <span>{cat.icon}</span>
+                <Link key={cat.id} to={`/category/${cat.slug}`} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-2 hover:bg-[var(--color-bg-tertiary)]">
+                  <span className="text-[var(--color-text-muted)]">{categoryIcons[cat.slug]}</span>
                   <span className="text-sm">{cat.name}</span>
                 </Link>
               ))}
@@ -220,67 +222,61 @@ export function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 mt-12">
+      <footer className="bg-[var(--color-text)] text-[var(--color-border)] mt-12">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-white font-bold text-lg mb-4">PakMart</h3>
-              <p className="text-sm text-gray-400 mb-4">Pakistan's largest online marketplace. Shop millions of products at the best prices.</p>
-              <div className="flex gap-3">
-                <a href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">f</a>
-                <a href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">t</a>
-                <a href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">in</a>
-                <a href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors">ig</a>
+              <p className="text-xs text-[var(--color-text-muted)] mb-4 leading-relaxed">Pakistan's largest online marketplace. Shop millions of products at the best prices with secure payments and fast delivery.</p>
+              <div className="flex gap-2">
+                {['facebook', 'twitter', 'instagram', 'linkedin'].map(social => (
+                  <a key={social} href="#" className="w-8 h-8 border border-[var(--color-text-secondary)] flex items-center justify-center hover:border-white hover:text-white transition-colors text-[10px] uppercase">
+                    {social[0]}
+                  </a>
+                ))}
               </div>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Customer Service</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">How to Buy</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Returns & Refunds</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Track Order</a></li>
+              <h4 className="text-white font-semibold text-sm mb-4">Customer Service</h4>
+              <ul className="space-y-2 text-xs">
+                {['Help Center', 'How to Buy', 'Returns & Refunds', 'Contact Us', 'Track Order'].map(item => (
+                  <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+                ))}
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">PakMart</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-orange-400 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Terms & Conditions</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition-colors">Seller Policy</a></li>
+              <h4 className="text-white font-semibold text-sm mb-4">PakMart</h4>
+              <ul className="space-y-2 text-xs">
+                {['About Us', 'Careers', 'Privacy Policy', 'Terms & Conditions', 'Seller Policy'].map(item => (
+                  <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+                ))}
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Payment & Delivery</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">COD</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">JazzCash</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">EasyPaisa</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">Visa</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">Mastercard</span>
+              <h4 className="text-white font-semibold text-sm mb-4">Payment & Delivery</h4>
+              <div className="space-y-3 text-xs">
+                <div className="flex flex-wrap gap-1.5">
+                  {['COD', 'JazzCash', 'EasyPaisa', 'Visa', 'Mastercard'].map(p => (
+                    <span key={p} className="px-2 py-1 border border-[var(--color-text-secondary)] text-[10px]">{p}</span>
+                  ))}
                 </div>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">TCS</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">Leopard</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">Trax</span>
-                  <span className="px-2 py-1 bg-gray-700 rounded text-xs">CallCourier</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {['TCS', 'Leopard', 'Trax', 'CallCourier'].map(c => (
+                    <span key={c} className="px-2 py-1 border border-[var(--color-text-secondary)] text-[10px]">{c}</span>
+                  ))}
                 </div>
               </div>
               <div className="mt-4">
-                <h5 className="text-white text-sm font-medium mb-2">Newsletter</h5>
+                <h5 className="text-white text-xs font-medium mb-2">Newsletter</h5>
                 <div className="flex">
-                  <input type="email" placeholder="Your email" className="flex-1 px-3 py-2 bg-gray-700 rounded-l text-sm outline-none" />
-                  <button className="px-3 py-2 bg-orange-600 rounded-r text-sm font-medium hover:bg-orange-700">Subscribe</button>
+                  <input type="email" placeholder="Your email" className="flex-1 px-3 py-2 bg-transparent border border-[var(--color-text-secondary)] text-xs outline-none focus:border-white" />
+                  <button className="px-3 py-2 bg-[var(--color-accent)] text-xs font-medium hover:bg-[var(--color-accent-hover)]">Subscribe</button>
                 </div>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-500">
-            <p>© 2024 PakMart. All rights reserved. | Made with ❤️ in Pakistan</p>
+          <div className="border-t border-[var(--color-text-secondary)] mt-8 pt-8 text-center text-xs text-[var(--color-text-muted)]">
+            <p>&copy; 2024 PakMart. All rights reserved.</p>
           </div>
         </div>
       </footer>
